@@ -1,14 +1,21 @@
-FROM node:22 as build
+FROM node:22 AS build
 
-WORKDIR /app 
-COPY package*.json .
-RUN npm install
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
 COPY . .
 RUN npm run build
 
-FROM node:22
+FROM node:22-slim AS runtime
+
 WORKDIR /app
-COPY package.json .
-RUN npm install --only=production
+ENV NODE_ENV=production
+
+COPY package*.json ./
+RUN npm ci --omit=dev
+
 COPY --from=build /app/dist ./dist
-CMD npm run start:prod
+
+CMD ["npm", "run", "start:prod"]
