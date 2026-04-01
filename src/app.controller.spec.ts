@@ -15,10 +15,9 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return hello payload including NODE_ENV', () => {
+    it('should return hello payload', () => {
       const body = appController.getHello();
-      expect(body).toContain('Hello World');
-      expect(body).toContain(`[${process.env.NODE_ENV}]`);
+      expect(body).toBe('Hello World');
     });
   });
 });
