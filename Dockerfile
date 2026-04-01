@@ -11,7 +11,7 @@ RUN npm run build
 FROM node:22-slim AS runtime
 
 WORKDIR /app
-ENV NODE_ENV=production
+ENV NODE_ENV=thi_prod_from_docker
 
 COPY package*.json ./
 RUN npm ci --omit=dev
