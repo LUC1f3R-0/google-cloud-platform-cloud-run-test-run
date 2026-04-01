@@ -18,5 +18,4 @@ RUN npm ci --omit=dev
 
 COPY --from=build /app/dist ./dist
 
-CMD ["sh", "-c", "npm run migration:run && npm run start:prod"]
-
+CMD ["npm", "run", "start:prod"]
