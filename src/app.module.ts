@@ -3,19 +3,24 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import {
+  getPostgresConnectionOptions,
+  getPostgresDriverExtra,
+} from './config/db-env';
 import { User } from './user/user.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.DB_HOST,
-      port: parseInt(process.env.DB_PORT ?? '5432', 10),
-      username: process.env.DB_USER,
-      password: process.env.DB_PASS,
-      database: process.env.DB_NAME,
-      entities: [User],
-      synchronize: false,
+    TypeOrmModule.forRootAsync({
+      useFactory: () => ({
+        type: 'postgres' as const,
+        ...getPostgresConnectionOptions(),
+        extra: getPostgresDriverExtra(),
+        entities: [User],
+        synchronize: false,
+        retryAttempts: 10,
+        retryDelay: 3000,
+      }),
     }),
     AuthModule,
   ],

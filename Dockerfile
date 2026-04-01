@@ -18,4 +18,5 @@ RUN npm ci --omit=dev
 
 COPY --from=build /app/dist ./dist
 
-CMD ["npm", "run", "start:prod"]
+# Direct node avoids npm shim overhead; dist/main.js is the compiled bootstrap
+CMD ["node", "dist/main.js"]
