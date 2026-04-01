@@ -1,6 +1,3 @@
-# Local dev: `docker compose up --build`. Requires DB_* env for the app (see `.env.example`).
-# Cloud Run: inject the same variable names via the service configuration (no `.env` in the image).
-
 services:
   db:
     image: postgres:16-alpine

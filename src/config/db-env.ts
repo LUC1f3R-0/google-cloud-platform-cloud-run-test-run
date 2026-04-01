@@ -25,23 +25,6 @@ export function getPostgresConnectionOptions(): {
   return { host, port, username, password, database };
 }
 
-/**
- * Call once from `main.ts` before `NestFactory.create` so missing DB_* fails with a clear
- * message and stack (bootstrap), not inside `dist/app.module.js` / TypeORM factory frames.
- */
-export function assertPostgresEnvConfigured(): void {
-  try {
-    getPostgresConnectionOptions();
-  } catch (e) {
-    const inner = e instanceof Error ? e.message : String(e);
-    throw new Error(
-      `[postgres-env] ${inner} ` +
-        `Set DB_HOST, DB_USER, DB_NAME (optional: DB_PORT default 5432, DB_PASS). ` +
-        `Cloud Run: service → Variables & Secrets. Local: copy .env.example to .env or use docker compose.`,
-    );
-  }
-}
-
 /** Passed to node-postgres via TypeORM `extra` — avoids hanging TCP on bad routes (e.g. Cloud Run startup budget). */
 export function getPostgresDriverExtra(): {
   connectionTimeoutMillis: number;
