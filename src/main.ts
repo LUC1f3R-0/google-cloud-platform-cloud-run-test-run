@@ -9,7 +9,7 @@ async function bootstrap() {
   const logger = new Logger('Bootstrap');
   assertPostgresEnvConfigured();
   const app = await NestFactory.create(AppModule);
-  const port = Number.parseInt(process.env.PORT ?? '8000', 10);
+  const port = Number.parseInt(process.env.PORT ?? '8080', 10);
   await app.listen(port, '0.0.0.0');
   logger.log(`HTTP server listening on 0.0.0.0:${port}`);
 }
