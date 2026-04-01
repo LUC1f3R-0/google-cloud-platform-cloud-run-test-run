@@ -1,5 +1,5 @@
 /**
- * Shared Postgres settings for Nest and TypeORM CLI.
+ * Postgres env + driver options for Nest TypeORM and `data-source.ts` (CLI migrations).
  * Empty DB_HOST makes node-postgres treat the host as localhost — wrong inside Docker/Cloud Run.
  */
 export function getPostgresConnectionOptions(): {
@@ -25,7 +25,6 @@ export function getPostgresConnectionOptions(): {
   return { host, port, username, password, database };
 }
 
-/** Passed to node-postgres via TypeORM `extra` — avoids hanging TCP on bad routes (e.g. Cloud Run startup budget). */
 export function getPostgresDriverExtra(): {
   connectionTimeoutMillis: number;
 } {

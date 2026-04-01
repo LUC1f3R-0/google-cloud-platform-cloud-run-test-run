@@ -6,7 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import {
   getPostgresConnectionOptions,
   getPostgresDriverExtra,
-} from './config/db-env';
+} from './postgres-env';
 import { User } from './user/user.entity';
 
 @Module({

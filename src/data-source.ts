@@ -3,7 +3,7 @@ import { DataSource } from 'typeorm';
 import {
   getPostgresConnectionOptions,
   getPostgresDriverExtra,
-} from './config/db-env';
+} from './postgres-env';
 import { User } from './user/user.entity';
 import { User1733035200000 } from './migrations/1733035200000-user';
 
